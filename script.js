@@ -42,6 +42,16 @@ document.addEventListener('DOMContentLoaded', () => {
         renderBoard();
     }
 
+    function updateProgress() {
+        const total = unresolved.length + resolved.length;
+        const done = resolved.length;
+        const percent = total === 0 ? 0 : Math.round((done / total) * 100);
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        progressBar.style.width = percent + '%';
+        progressText.textContent = `${done} / ${total} resolved (${percent}%)`;
+    }
+
     function renderBoard() {
         board.innerHTML = '';
         unresolved.forEach((imgObj, idx) => {
@@ -53,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             board.appendChild(card);
         });
         saveBoard();
+        updateProgress();
     }
 
     function openModal(src) {
@@ -157,4 +168,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // On load, restore board from storage
     loadBoard();
     renderBoard();
+    updateProgress();
 });
