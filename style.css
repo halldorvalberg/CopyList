@@ -1,6 +1,60 @@
+/* Color variables for light and dark mode */
+:root {
+    --bg-main: #f4f6fb;
+    --container-bg: #fff;
+    --container-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --text-main: #2d3748;
+    --drop-border: #a0aec0;
+    --drop-bg: #f9fafb;
+    --drop-color: #718096;
+    --drop-hover: #e2e8f0;
+    --card-bg: #edf2f7;
+    --card-bg-resolved: #e2e8f0;
+    --card-img-bg: #fff;
+    --card-img-border: #cbd5e1;
+    --progress-bg: #e2e8f0;
+    --progress-bar: #38a169;
+    --button-bg: #38a169;
+    --button-bg-hover: #2f855a;
+    --button-remove-bg: #718096;
+    --button-clear-bg: #e53e3e;
+    --button-clear-hover: #c53030;
+    --modal-bg: rgba(0, 0, 0, 0.6);
+    --modal-img-bg: #fff;
+    --modal-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+    --modal-close: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-main: #181a1b;
+        --container-bg: #23272e;
+        --container-shadow: 0 2px 8px rgba(0, 0, 0, 0.32);
+        --text-main: #f4f6fb;
+        --drop-border: #4a5568;
+        --drop-bg: #23272e;
+        --drop-color: #a0aec0;
+        --drop-hover: #2d3748;
+        --card-bg: #23272e;
+        --card-bg-resolved: #2d3748;
+        --card-img-bg: #23272e;
+        --card-img-border: #4a5568;
+        --progress-bg: #2d3748;
+        --progress-bar: #38a169;
+        --button-bg: #38a169;
+        --button-bg-hover: #2f855a;
+        --button-remove-bg: #4a5568;
+        --button-clear-bg: #c53030;
+        --button-clear-hover: #9b2c2c;
+        --modal-bg: rgba(0, 0, 0, 0.8);
+        --modal-img-bg: #23272e;
+        --modal-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+        --modal-close: #fff;
+    }
+}
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f4f6fb;
+    background: var(--bg-main);
     margin: 0;
     padding: 0;
 }
@@ -8,30 +62,30 @@ body {
 .container {
     max-width: 600px;
     margin: 40px auto;
-    background: #fff;
+    background: var(--container-bg);
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: var(--container-shadow);
     padding: 32px 24px;
 }
 
 h1 {
     text-align: center;
-    color: #2d3748;
+    color: var(--text-main);
     margin-bottom: 24px;
 }
 
 #drop-area {
-    border: 2px dashed #a0aec0;
+    border: 2px dashed var(--drop-border);
     border-radius: 8px;
     padding: 32px;
     text-align: center;
-    color: #718096;
+    color: var(--drop-color);
     margin-bottom: 24px;
-    background: #f9fafb;
+    background: var(--drop-bg);
     transition: background 0.2s;
 }
 #drop-area.dragover {
-    background: #e2e8f0;
+    background: var(--drop-hover);
 }
 #board {
     display: flex;
@@ -41,7 +95,7 @@ h1 {
 .image-card {
     display: flex;
     align-items: center;
-    background: #edf2f7;
+    background: var(--card-bg);
     border-radius: 6px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.04);
     padding: 12px 16px;
@@ -51,7 +105,7 @@ h1 {
 }
 .image-card.resolved {
     filter: grayscale(1) brightness(0.9);
-    background: #e2e8f0;
+    background: var(--card-bg-resolved);
     opacity: 0.7;
 }
 .image-card .checkmark {
@@ -69,12 +123,12 @@ h1 {
     max-width: 120px;
     max-height: 80px;
     border-radius: 4px;
-    background: #fff;
-    border: 1px solid #cbd5e1;
+    background: var(--card-img-bg);
+        border: 1px solid var(--card-img-border);
 }
 .image-card button {
     margin-left: auto;
-    background: #38a169;
+    background: var(--button-bg);
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -84,7 +138,11 @@ h1 {
     transition: background 0.2s;
 }
 .image-card button:hover {
-    background: #2f855a;
+    background: var(--button-bg-hover);
+    }
+    
+    .image-card button:last-child {
+        background: var(--button-remove-bg);
 }
 .modal {
     display: none;
@@ -94,7 +152,7 @@ h1 {
     top: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0,0,0,0.6);
+    background: var(--modal-bg);
     justify-content: center;
     align-items: center;
 }
@@ -105,15 +163,15 @@ h1 {
     max-width: 90vw;
     max-height: 80vh;
     border-radius: 8px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
-    background: #fff;
+    box-shadow: var(--modal-shadow);
+        background: var(--modal-img-bg);
 }
 .modal-close {
     position: absolute;
     top: 32px;
     right: 48px;
     font-size: 2.5em;
-    color: #fff;
+    color: var(--modal-close);
     cursor: pointer;
     z-index: 1001;
     user-select: none;
@@ -121,7 +179,7 @@ h1 {
 .clear-btn {
     display: block;
     margin: 16px auto 24px auto;
-    background: #e53e3e;
+    background: var(--button-clear-bg);
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -133,7 +191,7 @@ h1 {
     transition: background 0.2s;
 }
 .clear-btn:hover {
-    background: #c53030;
+    background: var(--button-clear-hover);
 }
 #progress-container {
     margin: 18px 0 18px 0;
@@ -144,7 +202,7 @@ h1 {
     width: 100%;
     max-width: 400px;
     height: 18px;
-    background: #e2e8f0;
+    background: var(--progress-bg);
     border-radius: 9px;
     margin: 0 auto 6px auto;
     overflow: hidden;
@@ -152,7 +210,7 @@ h1 {
 
 #progress-bar {
     height: 100%;
-    background: #38a169;
+    background: var(--progress-bar);
     width: 0%;
     border-radius: 9px 0 0 9px;
     transition: width 0.3s;
@@ -160,6 +218,23 @@ h1 {
 
 #progress-text {
     font-size: 1em;
-    color: #2d3748;
+    color: var(--text-main);
     margin-top: 2px;
+}
+
+/* Hamburger (drag handle) styles */
+.drag-handle {
+    cursor: grab;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    font-size: 1.3em;
+    color: var(--drop-border);
+    transition: color 0.2s;
+}
+
+.drag-handle:active {
+    cursor: grabbing;
+    color: var(--button-bg);
 }

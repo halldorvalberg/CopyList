@@ -85,6 +85,48 @@ document.addEventListener('DOMContentLoaded', () => {
     function createImageCard(imgObj, idx, isResolved) {
         const card = document.createElement('div');
         card.className = 'image-card' + (isResolved ? ' resolved' : '');
+        // Hamburger drag handle
+        if (!isResolved) {
+            const dragHandle = document.createElement('span');
+            dragHandle.className = 'drag-handle';
+            dragHandle.innerHTML = '&#9776;'; // Unicode hamburger
+            dragHandle.draggable = true;
+            dragHandle.addEventListener('dragstart', (e) => {
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/plain', idx);
+                card.classList.add('dragging');
+            });
+            dragHandle.addEventListener('dragend', () => {
+                card.classList.remove('dragging');
+            });
+            card.appendChild(dragHandle);
+            card.setAttribute('draggable', 'true');
+            card.addEventListener('dragstart', (e) => {
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/plain', idx);
+                card.classList.add('dragging');
+            });
+            card.addEventListener('dragend', () => {
+                card.classList.remove('dragging');
+            });
+            card.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                card.classList.add('drag-over');
+            });
+            card.addEventListener('dragleave', () => {
+                card.classList.remove('drag-over');
+            });
+            card.addEventListener('drop', (e) => {
+                e.preventDefault();
+                card.classList.remove('drag-over');
+                const fromIdx = parseInt(e.dataTransfer.getData('text/plain'), 10);
+                if (fromIdx !== idx) {
+                    const moved = unresolved.splice(fromIdx, 1)[0];
+                    unresolved.splice(idx, 0, moved);
+                    renderBoard();
+                }
+            });
+        }
         const img = document.createElement('img');
         img.src = imgObj.src;
         img.style.cursor = 'pointer';
@@ -101,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.appendChild(resolveBtn);
             const removeBtn = document.createElement('button');
             removeBtn.textContent = 'Remove';
-            removeBtn.style.background = '#718096';
+            removeBtn.style.background = 'var(--button-remove-bg)';
             removeBtn.style.marginLeft = '8px';
             removeBtn.onclick = () => {
                 unresolved.splice(idx, 1);
