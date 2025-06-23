@@ -1,5 +1,11 @@
 # CopyList
 
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Status: Stable](https://img.shields.io/badge/status-stable-brightgreen)
+![Built with: Vanilla JS](https://img.shields.io/badge/Built%20with-Vanilla%20JS-blue)
+![Open in Browser](https://img.shields.io/badge/Launch-Open%20index.html%20📂-lightgrey)
+
+
 A simple web app for visually tracking and resolving image-based bugs or issues.
 
 ## Example
