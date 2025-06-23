@@ -2,6 +2,10 @@
 
 A simple web app for visually tracking and resolving image-based bugs or issues.
 
+## Example
+
+![Example board](/resources/example.png)
+
 ## Features
 
 - Paste (Ctrl+V) or drag-and-drop images onto the board
@@ -22,11 +26,3 @@ A simple web app for visually tracking and resolving image-based bugs or issues.
    - Resolved images move to the bottom, become gray, and show a checkmark
 4. **Repeat as needed:**
    - Continue adding, reviewing, and resolving images as your workflow requires
-
-## TODO
-
-- [ ] Implement persistent storage (localStorage)
-- [ ] Add usage instructions and screenshots
-- [ ] Deploy to GitHub Pages or similar
-
-Feel free to update this list as you work on the project!
