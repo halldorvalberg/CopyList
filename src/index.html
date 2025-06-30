@@ -24,11 +24,16 @@
         <div id="board">
             <!-- Images will appear here -->
         </div>
+        <div id="action-buttons" style="display: flex; flex-direction: column; align-items: flex-start;">
+            <button id="clear-board" class="clear-btn">Clear Board</button>
+            <button id="export-btn" class="report-btn">Export</button>
+        </div>
     </div>
     <div id="modal" class="modal">
         <span class="modal-close">&times;</span>
         <img class="modal-img" src="" alt="Large preview">
     </div>
     <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </body>
 </html>

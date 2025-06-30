@@ -193,6 +193,24 @@ h1 {
 .clear-btn:hover {
     background: var(--button-clear-hover);
 }
+.report-btn {
+    display: block;
+    margin: 16px auto;
+    background: var(--button-bg);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 20px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    transition: background 0.2s;
+}
+
+.report-btn:hover {
+    background: var(--button-bg-hover);
+}
 #progress-container {
     margin: 18px 0 18px 0;
     text-align: center;

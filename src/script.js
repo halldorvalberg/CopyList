@@ -35,13 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function clearBoard() {
-        unresolved = [];
-        resolved = [];
-        saveBoard();
-        renderBoard();
-    }
-
     function updateProgress() {
         const total = unresolved.length + resolved.length;
         const done = resolved.length;
@@ -199,16 +192,67 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Add a clear button
-    const clearBtn = document.createElement('button');
-    clearBtn.textContent = 'Clear Board';
-    clearBtn.className = 'clear-btn';
-    clearBtn.style.margin = '16px 0';
-    clearBtn.onclick = clearBoard;
-    dropArea.parentNode.insertBefore(clearBtn, board.nextSibling);
-
     // On load, restore board from storage
     loadBoard();
     renderBoard();
     updateProgress();
+
+    document.getElementById('export-btn').addEventListener('click', async () => {
+        console.log("Initiating export sequence...");
+
+        const data = JSON.parse(localStorage.getItem('copylist-board')) || { unresolved: [], resolved: [] };
+
+        if (data.unresolved.length === 0 && data.resolved.length === 0) {
+            alert("No images to export.");
+            return;
+        }
+
+        const zip = new JSZip();
+        const unresolvedFolder = zip.folder("Unresolved");
+        const resolvedFolder = zip.folder("Resolved");
+
+        for (let i = 0; i < data.unresolved.length; i++) {
+            const imgObj = data.unresolved[i];
+            try {
+                const response = await fetch(imgObj.src);
+                const blob = await response.blob();
+                const name = `image_${i + 1}.${blob.type.split('/')[1] || 'png'}`;
+                unresolvedFolder.file(name, blob);
+            } catch (error) {
+                console.error(`Failed to fetch unresolved image: ${imgObj.src}`, error);
+            }
+        }
+
+        for (let i = 0; i < data.resolved.length; i++) {
+            const imgObj = data.resolved[i];
+            try {
+                const response = await fetch(imgObj.src);
+                const blob = await response.blob();
+                const name = `image_${i + 1}.${blob.type.split('/')[1] || 'png'}`;
+                resolvedFolder.file(name, blob);
+            } catch (error) {
+                console.error(`Failed to fetch resolved image: ${imgObj.src}`, error);
+            }
+        }
+
+        zip.generateAsync({ type: 'blob' }).then((zipBlob) => {
+            const zipUrl = URL.createObjectURL(zipBlob);
+            const downloadLink = document.createElement('a');
+            downloadLink.href = zipUrl;
+            downloadLink.download = 'CopyList_Images.zip';
+            downloadLink.click();
+            URL.revokeObjectURL(zipUrl);
+        }).catch(err => {
+            console.error("Failed to generate ZIP:", err);
+            alert("Something went wrong during ZIP creation.");
+        });
+    });
+
+    document.getElementById('clear-board').addEventListener('click', () => {
+        unresolved = [];
+        resolved = [];
+        renderBoard();
+        updateProgress();
+        localStorage.removeItem(STORAGE_KEY);
+    });
 });
